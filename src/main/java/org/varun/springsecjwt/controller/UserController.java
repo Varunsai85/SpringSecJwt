@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.varun.springsecjwt.model.User;
+import org.varun.springsecjwt.service.JwtService;
 import org.varun.springsecjwt.service.UserService;
 
 @RestController
@@ -15,6 +16,7 @@ import org.varun.springsecjwt.service.UserService;
 public class UserController {
     private UserService service;
     private AuthenticationManager authenticationManager;
+    private JwtService jwtService;
 
     @PostMapping("register")
     public User register(@RequestBody User user){
@@ -24,7 +26,7 @@ public class UserController {
     @PostMapping("login")
     public String login(@RequestBody User user){
         Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword()));
-        if(authentication.isAuthenticated()) return "Success";
+        if(authentication.isAuthenticated()) return jwtService.generateToken(user.getUserName());
         else return "Failed";
     }
 }
