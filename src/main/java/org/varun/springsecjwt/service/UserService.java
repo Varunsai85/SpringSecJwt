@@ -1,4 +1,4 @@
-package org.varun.springsecjwt.sevice;
+package org.varun.springsecjwt.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
